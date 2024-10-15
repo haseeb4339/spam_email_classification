@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #4a90e2, #001f3f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .login-form h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            justify-content: left;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group label {
+            margin-left: 5px;
+            color: #333;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background-color: #357ABD;
+        }
+
+        .options {
+            margin-top: 15px;
+        }
+
+        .options a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .options a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            color: red;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Message display section -->
+        {% if messages %}
+        <ul id="message-list">
+            {% for message in messages %}
+                {% if 'error' in message.tags %}
+                    <li class="alert alert-danger" role="alert">{{ message }}</li>
+                {% elif 'success' in message.tags %}
+                    <li class="alert alert-success" role="alert">{{ message }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form action="" method="post" class="login-form">
+            {% csrf_token %}
+            <h2>Welcome Back!</h2>
+            
+            <div class="input-group">
+                <input type="email" name="email" placeholder="Enter Email Address..." required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" name="remember" id="remember">
+                <label for="remember">Remember me</label>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+            <div class="options">
+                
+                <a href="{% url 'signup' %}">Create an Account!</a>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Automatically hide success messages after 5 seconds
+        setTimeout(function() {
+            let messages = document.getElementById('message-list');
+            if (messages) {
+                messages.style.display = 'none';
+            }
+        }, 5000); // 5000ms = 5 seconds
+    </script>
+</body>
+</html>
